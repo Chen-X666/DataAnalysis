@@ -13,16 +13,19 @@ import numpy as np  # numpy库
 # 字符串分类转数值分类
 # label encode标签编码(0, n-1)
 def labelEncoder(data,label):
-
-    tempdata = data[label]
-    tempdata = np.array(tempdata)
-    label_encoder = LabelEncoder()
-    label_encoder.fit(tempdata)
-    print(label_encoder.classes_)   # 对原始编码去重，相当于np.array(set(data))
-
-    integer_encoded = label_encoder.transform(tempdata)     # 对原数据编码
-    print(integer_encoded)
-    print(label_encoder.transform(tempdata))    # 对指定数据编码
+    #
+    # tempdata = data[label]
+    # tempdata = np.array(tempdata)
+    # label_encoder = LabelEncoder()
+    # label_encoder.fit(tempdata)
+    # print(label_encoder.classes_)   # 对原始编码去重，相当于np.array(set(data))
+    #
+    # integer_encoded = label_encoder.transform(tempdata)     # 对原数据编码
+    # print(integer_encoded)
+    # data = label_encoder.transform(tempdata) #
+    category = pd.Categorical(data[label])
+    data[label] = pd.Categorical(data[label]).codes
+    return category,data
 
 if __name__ == '__main__':
     #测试数据集
@@ -34,5 +37,5 @@ if __name__ == '__main__':
 
     label = ['house']
     labelEncoder(data,label)
-    print(labelEncoder(data,label))
+
 
