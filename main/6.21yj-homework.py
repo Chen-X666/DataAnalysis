@@ -12,6 +12,7 @@ import dataPretreatment.oneHot as oneHot
 import dataPretreatment.dataBinning as dataBinning
 import dataPretreatment.labelEncoder as labelEncoder
 import dataReading.dataReading as dataSimpleReading
+import dataPretreatment.SMOTE as SMOTE
 
 if __name__ == '__main__':
     #数据预处理
@@ -35,14 +36,37 @@ if __name__ == '__main__':
     # a = data[['NUM_TEL','NUM_ACT_TEL']].corr()
     # b = data[['SUBPLAN','SUBPLAN_PREVIOUS']].corr()
     # print(a)
+    #查看数据格式
     print(data.dtypes)
+    #转换数据格式
     data['LINE_TENURE'] = pd.to_numeric(data['LINE_TENURE'], errors='coerce')
-    print(dataSimpleReading.dataSimpleReading(data))
+    data['AGE'] = pd.to_numeric(data['AGE'], errors='coerce')
     #去空白值
     data.dropna(how='any', axis=0, inplace=True)
-    #存
-    df = data.to_csv('1.csv',index=False)
-    print(data.dtypes)
+    # 看样本是否均衡
+    dataSimpleReading.label_samples_summary(data)
+    '''
+    result:
+    0    1754
+    1     233
+    '''
+    #x取除了最后一行，y取最后一行
+    X = data.iloc[:,:-1]
+    y = data.iloc[:, -1]
+    #SMOTE做样本均衡
+    X_resampled,y_resampled = SMOTE.sample_balance(X=X,y=y)
+    print(X_resampled['AGE'])
+    data = X_resampled.join(y_resampled)
+    print(data)
+    dataSimpleReading.label_samples_summary(data)
+    '''
+    result:
+    0    1754
+    1    1754
+    '''
+    #print(data.dtypes)
+    # 存
+    data.to_csv('1.csv',index=False)
     #data = data.infer_objects()
 
 

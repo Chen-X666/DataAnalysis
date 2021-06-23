@@ -4,7 +4,7 @@ Time:     2021/6/22 21:50
 Author:   ChenXin
 Version:  V 0.1
 File:     dataReading.py
-Describe: Write during the internship at Hikvison, Github link: https://github.com/Chen-X666
+Describe: Github link: https://github.com/Chen-X666
 """
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -23,7 +23,22 @@ def dataSimpleReading(data):
     print(df.isnull().sum())
     pd.reset_option("display.max_rows")  # 恢复默认设置
 
+# 类样本均衡审查
+def label_samples_summary(df):
+    '''
+    查看每个类的样本量分布
+    :param df: 数据框
+    :return: 无
+    '''
+    print('{:*^60}'.format('Labesl samples count:'))
+    print(df.iloc[:, 0].groupby(df.iloc[:, -1]).count())
+
 def dataBoxReading(data,columu):
+    '''
+    箱型图构建
+    :param data: 数据框
+    :return: 无
+    '''
     df = pd.DataFrame(data)
     box_1 = df[columu]
     plt.figure(figsize=(10, 5))  # 设置画布的尺寸

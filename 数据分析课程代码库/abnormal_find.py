@@ -148,7 +148,9 @@ X_combine = np.hstack((combine_set, constant_set))  # 再次合并数据集
 X_combine=pd.DataFrame(X_combine)
 print('{:*^60}'.format('Correlation Analyze:'))
 print(X_combine.corr().round(2))  # 输出所有输入特征变量以及预测变量的相关性矩阵
-
+print('X_COM')
+print(X_combine)
+print(y_raw)
 X, y = sample_balance(X_combine, y_raw)  # 样本均衡处理
 '''X=X_combine
 y=y_raw'''
