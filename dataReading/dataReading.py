@@ -9,19 +9,32 @@ Describe: Github link: https://github.com/Chen-X666
 import pandas as pd
 from matplotlib import pyplot as plt
 import re
+import seaborn as sns
 def dataSimpleReading(data):
     # 显示所有列 行
     pd.set_option('display.max_columns', None)
     pd.set_option('display.max_rows', None)
     df = pd.DataFrame(data)
+    print('{:-^60}'.format('数据基本情况'))
+    print(df.head().append(df.tail()))
     print('{:-^60}'.format('数据基本统计分析'))
-    describe = df.describe()
-    print(describe)
+    print(df.describe())
     print('{:-^60}'.format('数据类型查看'))
-    print(df.dtypes)
-    print('{:-^60}'.format('空值查看'))
-    print(df.isnull().sum())
+    print(df.info())
+    print('{:-^60}'.format('数据峰度查看；如果训练集和测试集分布不一致，就要考虑进行分布转换'))
+
+    print('{:-^60}'.format('列 空值查看'))
+    print(df.isnull().any(axis=0).sum())
+    print('{:-^60}'.format('行 空值查看'))
+    print(df.isnull().any(axis=1).sum())
     pd.reset_option("display.max_rows")  # 恢复默认设置
+
+
+def dataStringCount(data,columns):
+    data = pd.DataFrame(data)
+    print('{:-^60}'.format('字符串数据计数'))
+    for i in columns:
+        print(data[i].value_counts())
 
 # 类样本均衡审查
 def label_samples_summary(df):
@@ -33,25 +46,10 @@ def label_samples_summary(df):
     print('{:*^60}'.format('Labesl samples count:'))
     print(df.iloc[:, 0].groupby(df.iloc[:, -1]).count())
 
-def dataBoxReading(data,columu):
-    '''
-    箱型图构建
-    :param data: 数据框
-    :return: 无
-    '''
-    df = pd.DataFrame(data)
-    box_1 = df[columu]
-    plt.figure(figsize=(10, 5))  # 设置画布的尺寸
-    plt.title('Data of boxplot', fontsize=20)  # 标题，并设定字号大小
-    plt.boxplot(box_1)  # grid=False：代表不显示背景中的网格线
-    # data.boxplot()#画箱型图的另一种方法，参数较少，而且只接受dataframe，不常用
-    plt.show()  # 显示图像
-
-def relatedAnalysisReading(data):
-    # print('{:-^60}'.format('相关性分析'))
-    # short_name = ['AGE', 'GENDER', "LINE_TENURE ", "SUBPLAN", "SUBPLAN_PREVIOUS", "NUM_TEL", "NUM_ACT_TEL"]
-    # long_name = train_data.columns
-    # name_dict = dict(zip(long_name, short_name))  # 组成字典
-    # print(name_dict, '\n')
-    # print(train_data.iloc[:-3, :].corr().round(2).rename(index=name_dict, columns=name_dict))
-    return 0
+# 相关性分析
+def relatedAnalysisReading(data,columns):
+    X_combine = pd.DataFrame(data[columns])
+    print('{:*^60}'.format('相关系数分析:'))
+    print(X_combine.corr().round(2))  # 输出所有输入特征变量以及预测变量的相关性矩阵
+    sns.pairplot(data=X_combine.corr().round(2),diag_kind='kde')
+    sns.pairplot(data[columns])

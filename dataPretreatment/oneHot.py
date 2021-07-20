@@ -5,7 +5,7 @@ Author:   ChenXin
 Version:  V 0.1
 File:     oneHot.py
 skLearn :https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html
-Describe: Write during the internship at Hikvison, Github link: https://github.com/Chen-X666
+Describe:  Github link: https://github.com/Chen-X666
 """
 import pandas as pd
 from sklearn.preprocessing import  OneHotEncoder

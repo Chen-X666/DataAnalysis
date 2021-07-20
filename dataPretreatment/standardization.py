@@ -5,36 +5,46 @@ import numpy as np
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 
-data = np.loadtxt('data6.txt', delimiter='\t')  # 读取数据
-print(data.shape)
-# Z-Score标准化
-zscore_scaler = preprocessing.StandardScaler()  # 建立StandardScaler对象
-data_scale_1 = zscore_scaler.fit_transform(data)  # StandardScaler标准化处理
+def standardizationPic(data):
+    data = np.array(data)
+    print(data.shape)
+    print(data)
+    data_scale_1, data_scale_2, data_scale_3, data_scale_4 = ZScore(data), MaxMin(data), MaxAbsScaler(
+        data), RobustScaler(data)
+    data_list = [data, data_scale_1, data_scale_2, data_scale_3,
+                 data_scale_4]
+    scalar_list = [15, 10, 15, 10, 15, 10]
+    color_list = ['black', 'green', 'blue', 'yellow', 'red']
+    merker_list = ['o', ',', '+', 's', 'p']
+    title_list = ['source data', 'zscore_scaler', 'minmax_scaler',
+                  'maxabsscaler_scaler', 'robustscalerr_scaler']
+    for i, data_single in enumerate(data_list):
+        plt.subplot(2, 3, i + 1)  # 确锟斤拷锟斤拷锟斤拷锟斤拷
+        plt.scatter(data_single[:, :-1], data_single[:, -1], s=scalar_list[i],
+                    marker=merker_list[i], c=color_list[i])
+        plt.title(title_list[i])
+    plt.suptitle("raw data and standardized data")
+    plt.show()  # 展示图锟斤拷
 
-# Max-Min标准化
-minmax_scaler = preprocessing.MinMaxScaler()  # 建立MinMaxScaler模型对象
-data_scale_2 = minmax_scaler.fit_transform(data)  # MinMaxScaler标准化处理
+def ZScore(data):
+    zscore_scaler = preprocessing.StandardScaler()  # 锟斤拷锟斤拷StandardScaler锟斤拷锟斤拷
+    data_scale_1 = zscore_scaler.fit_transform(data)  # StandardScaler锟斤拷准锟斤拷锟斤拷锟斤拷
+    return data_scale_1
 
-# MaxAbsScaler标准化
-maxabsscaler_scaler = preprocessing.MaxAbsScaler()  # 建立MaxAbsScaler对象
-data_scale_3 = maxabsscaler_scaler.fit_transform(data)  # MaxAbsScaler标准化处理
+def MaxMin(data):
+    minmax_scaler = preprocessing.MinMaxScaler()  # 锟斤拷锟斤拷MinMaxScaler模锟酵讹拷锟斤拷
+    data_scale_2 = minmax_scaler.fit_transform(data)  # MinMaxScaler锟斤拷准锟斤拷锟斤拷锟斤拷
+    return data_scale_2
 
-# RobustScaler标准化
-robustscalerr_scaler = preprocessing.RobustScaler()  # 建立RobustScaler标准化对象
-data_scale_4 = robustscalerr_scaler.fit_transform(data)  # RobustScaler标准化标准化处理
+def MaxAbsScaler(data):
+    maxabsscaler_scaler = preprocessing.MaxAbsScaler()  # 锟斤拷锟斤拷MaxAbsScaler锟斤拷锟斤拷
+    data_scale_3 = maxabsscaler_scaler.fit_transform(data)  # MaxAbsScaler锟斤拷准锟斤拷锟斤拷锟斤拷
+    return data_scale_3
 
-# 展示多网格结果
-data_list = [data, data_scale_1, data_scale_2, data_scale_3,
-             data_scale_4]  # 创建数据集列表
-scalar_list = [15, 10, 15, 10, 15, 10]  # 创建点尺寸列表
-color_list = ['black', 'green', 'blue', 'yellow', 'red']  # 创建颜色列表
-merker_list = ['o', ',', '+', 's', 'p']  # 创建样式列表
-title_list = ['source data', 'zscore_scaler', 'minmax_scaler',
-              'maxabsscaler_scaler', 'robustscalerr_scaler']  # 创建标题列表
-for i, data_single in enumerate(data_list):  # 循环得到索引和每个数值
-    plt.subplot(2, 3, i+1)  # 确定子网格   参数：行，列，图的索引号
-    plt.scatter(data_single[:, :-1], data_single[:, -1], s=scalar_list[i],
-                marker=merker_list[i],c=color_list[i])  # 子网格展示散点图
-    plt.title(title_list[i])  # 设置子网格标题
-plt.suptitle("raw data and standardized data")  # 设置总标题
-plt.show()  # 展示图形
+def RobustScaler(data):
+    robustscalerr_scaler = preprocessing.RobustScaler()  # 锟斤拷锟斤拷RobustScaler锟斤拷准锟斤拷锟斤拷锟斤拷
+    data_scale_4 = robustscalerr_scaler.fit_transform(data)  # RobustScaler锟斤拷准锟斤拷锟斤拷准锟斤拷锟斤拷锟斤拷
+    return data_scale_4
+
+if __name__ == '__main__':
+    print()
