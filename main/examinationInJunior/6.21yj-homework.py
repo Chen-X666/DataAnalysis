@@ -18,6 +18,8 @@ import dataReading.dataPicReading as dataPicReading
 import seaborn as sns
 import dataPretreatment.outlierDection as outlierDection
 import dataPretreatment.Clustering as clustering
+import dataAnalysisModel.regression as regression
+import dataAnalysisModel.RandomForest as randomForest
 
 if __name__ == '__main__':
     #数据预处理
@@ -62,51 +64,55 @@ if __name__ == '__main__':
     trainingData['LINE_TENURE'] = clustering.kmeanClustering(data1=trainingData, columns='LINE_TENURE',
                                                                   x='CUSTOMER_TYPE',
                                                                   y="LINE_TENURE",num=5)
-    # #
-    # #去异常值——————孤独森林
-    # trainingData = outlierDection.isolationForest(data=trainingData)
-    # print(trainingData)
-    # # 去空白值
-    # trainingData.dropna(how='any', axis=0, inplace=True)
-    # # 看样本是否均衡
-    # dataReading.label_samples_summary(trainingData)
-    # '''
-    # result:
-    # 0    1754
-    # 1     233
-    # '''
-    # #做柱状图
-    # #columns = ['AGE', 'GENDER', 'MARITAL_STATUS', 'CUSTOMER_CLASS', 'LINE_TENURE', 'SUBPLAN',
-    # #           'SUBPLAN_PREVIOUS', 'NUM_TEL', 'NUM_ACT_TEL', 'PAY_METD', 'PAY_METD_PREV', 'CUSTOMER_TYPE']
-    # #dataPicReading.dataHistogramReading(data=trainingData,columns=columns,picWidth=4,picHigh=3)
-    # # 相关性分析
-    # #columns = ['AGE', 'GENDER','MARITAL_STATUS','CUSTOMER_CLASS','LINE_TENURE', 'SUBPLAN',
-    # #'SUBPLAN_PREVIOUS', 'NUM_TEL', 'NUM_ACT_TEL','PAY_METD','PAY_METD_PREV','CUSTOMER_TYPE']
-    # #dataReading.relatedAnalysisReading(data=trainingData,columns=columns)
-    # '''
-    # result:
-    #             NUM_TEL     NUM_ACT_TEL
-    #  NUM_TEL        1           1
-    #  NUM_ACT_TEL    1           1
-    # '''
-    # # 删掉NUM_ACT_TEL
-    # del trainingData['NUM_ACT_TEL']
     #
-    # #x取除了最后一行，y取最后一行
-    # X = trainingData.iloc[:, :-1]
-    # y = trainingData.iloc[:, -1]
-    # #SMOTE做样本均衡
-    # X_resampled,y_resampled = SMOTE.sample_balance(X=X,y=y)
-    # print(X_resampled['AGE'])
-    # trainingData = X_resampled.join(y_resampled)
-    # print(trainingData)
-    # dataReading.label_samples_summary(trainingData)
-    # '''
-    # result:
-    # 0    1754
-    # 1    1754
-    # '''
-    # trainingData.to_csv('1.csv', index=False)
-    #
+    #去异常值——————孤独森林
+    trainingData = outlierDection.isolationForest(data=trainingData)
+    print(trainingData)
+    # 去空白值
+    trainingData.dropna(how='any', axis=0, inplace=True)
+    # 看样本是否均衡
+    dataReading.label_samples_summary(trainingData)
+    '''
+    result:
+    0    1754
+    1     233
+    '''
+    #做柱状图
+    #columns = ['AGE', 'GENDER', 'MARITAL_STATUS', 'CUSTOMER_CLASS', 'LINE_TENURE', 'SUBPLAN',
+    #           'SUBPLAN_PREVIOUS', 'NUM_TEL', 'NUM_ACT_TEL', 'PAY_METD', 'PAY_METD_PREV', 'CUSTOMER_TYPE']
+    #dataPicReading.dataHistogramReading(data=trainingData,columns=columns,picWidth=4,picHigh=3)
+    # 相关性分析
+    #columns = ['AGE', 'GENDER','MARITAL_STATUS','CUSTOMER_CLASS','LINE_TENURE', 'SUBPLAN',
+    #'SUBPLAN_PREVIOUS', 'NUM_TEL', 'NUM_ACT_TEL','PAY_METD','PAY_METD_PREV','CUSTOMER_TYPE']
+    #dataReading.relatedAnalysisReading(data=trainingData,columns=columns)
+    '''
+    result:
+                NUM_TEL     NUM_ACT_TEL
+     NUM_TEL        1           1
+     NUM_ACT_TEL    1           1
+    '''
+    # 删掉NUM_ACT_TEL
+    del trainingData['NUM_ACT_TEL']
+
+    #x取除了最后一行，y取最后一行
+    X = trainingData.iloc[:, :-1]
+    y = trainingData.iloc[:, -1]
+    #SMOTE做样本均衡
+    X_resampled,y_resampled = SMOTE.sample_balance(X=X,y=y)
+    print(X_resampled['AGE'])
+    trainingData = X_resampled.join(y_resampled)
+    print(trainingData)
+    dataReading.label_samples_summary(trainingData)
+    '''
+    result:
+    0    1754
+    1    1754
+    '''
+    X = trainingData.iloc[:, :-1]
+    y = trainingData.iloc[:, -1]
+    #regression.regression(X,y)
+    #trainingData.to_csv('1.csv', index=False)
+    randomForest.decisionTree(X,y)
+
 
 
