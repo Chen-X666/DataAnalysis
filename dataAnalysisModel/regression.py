@@ -32,7 +32,7 @@ def regression(X,y):
     model_br = BayesianRidge()  # 建立贝叶斯岭回归模型对象
     model_lr = LinearRegression()  # 建立普通线性回归模型对象
     model_etc = ElasticNet()  # 建立弹性网络回归模型对象
-    model_svr = SVR()  # 建立支持向量机回归模型对象
+    model_svr = SVR()  # 建立支持向量回归模型对象
     model_gbr = GradientBoostingRegressor()  # 建立梯度增强回归模型对象
     model_names = ['BayesianRidge', 'LinearRegression', 'ElasticNet', 'SVR', 'GBR']  # 不同模型的名称列表
     model_dic = [model_br, model_lr, model_etc, model_svr, model_gbr]  # 不同回归模型对象的集合

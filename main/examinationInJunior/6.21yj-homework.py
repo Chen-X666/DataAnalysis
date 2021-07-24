@@ -58,9 +58,9 @@ if __name__ == '__main__':
     #去空白值
     trainingData.dropna(how='any', axis=0, inplace=True)
     #support字段的聚类
-    # trainingData['SUBPLAN'] = clustering.kmeanClustering(data1=trainingData,columns='SUBPLAN',x='CUSTOMER_TYPE',y="SUBPLAN",num = 2)
-    # trainingData['SUBPLAN_PREVIOUS'] = clustering.kmeanClustering(data1=trainingData, columns='SUBPLAN_PREVIOUS', x='CUSTOMER_TYPE',
-    #                                                     y="SUBPLAN_PREVIOUS",num = 4)
+    trainingData['SUBPLAN'] = clustering.kmeanClustering(data1=trainingData,columns='SUBPLAN',x='CUSTOMER_TYPE',y="SUBPLAN",num = 2)
+    trainingData['SUBPLAN_PREVIOUS'] = clustering.kmeanClustering(data1=trainingData, columns='SUBPLAN_PREVIOUS', x='CUSTOMER_TYPE',
+                                                         y="SUBPLAN_PREVIOUS",num = 4)
     trainingData['LINE_TENURE'] = clustering.kmeanClustering(data1=trainingData, columns='LINE_TENURE',
                                                                   x='CUSTOMER_TYPE',
                                                                   y="LINE_TENURE",num=5)
@@ -110,9 +110,9 @@ if __name__ == '__main__':
     '''
     X = trainingData.iloc[:, :-1]
     y = trainingData.iloc[:, -1]
-    #regression.regression(X,y)
+    regression.regression(X,y)
     #trainingData.to_csv('1.csv', index=False)
-    randomForest.decisionTree(X,y)
+    #randomForest.decisionTree(X,y)
 
 
 
