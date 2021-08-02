@@ -38,9 +38,10 @@ def SVM(X,y):
     model_rf = model_gs.best_estimator_  # 获得交叉检验模型得出的最优模型对象
     model_rf.fit(X_train, y_train)  # 训练集拟合模型
     pre_y = model_rf.predict(X_test)  # 得到测试集的预测结果集合，为构建混淆矩阵做准备
-
+    print(confusion_matrix(y_true=y_test,y_pred=pre_y))
     # 混淆矩阵
-    TN, FP, FN, TP = confusion_matrix(y_test, pre_y).ravel()  # 获得混淆矩阵并用ravel将四个值拆开赋予TN,FP,FN,TP
+
+    TN,FP,FN,TP = confusion_matrix(y_true=y_test,y_pred=pre_y).ravel()  # 获得混淆矩阵并用ravel将四个值拆开赋予TN,FP,FN,TP
     confusion_matrix_table = prettytable.PrettyTable(['', '预测2G', '预测3G'])
     confusion_matrix_table.add_row(['真实2G', TP, FN])
     confusion_matrix_table.add_row(['真实3G', FP, TN])

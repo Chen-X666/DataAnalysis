@@ -45,7 +45,7 @@ def regression(X,y):
         print('模型训练评分......')
         print(scores)
         pre_y_list.append(model.fit(X, y).predict(X))  # 将回归训练中得到的预测y存入列表
-
+    print(model_lr)
     # 模型效果指标评估：方差得分、平均绝对误差、均方差、r2判定系数
     n_samples, n_features = X.shape  # 总样本量,总特征数
     model_metrics_name = [explained_variance_score, mean_absolute_error, mean_squared_error, r2_score]  # 回归评估指标对象集
