@@ -18,10 +18,11 @@ import dataReading.dataPicReading as dataPicReading
 import seaborn as sns
 import dataPretreatment.outlierDection as outlierDection
 import dataPretreatment.Clustering as clustering
-import dataAnalysisModel.regression as regression
+import dataAnalysisModel.LinearRegression as regression
 import dataAnalysisModel.RandomForest as randomForest
 import dataAnalysisModel.KNN as knn
 import dataAnalysisModel.SVM as svm
+import dataAnalysisModel.LogisticRegression as logisticRegression
 
 if __name__ == '__main__':
     # #数据预处理
@@ -113,8 +114,9 @@ if __name__ == '__main__':
     trainingData = pd.read_csv('1.csv')
     X = trainingData.iloc[:, :-1]
     y = trainingData.iloc[:, -1]
+    logisticRegression.LogisticRegress(X,y)
     #regression.regression(X,y)
-    svm.SVM(X,y)
+    #svm.SVM(X,y)
     #knn.KNN(X,y)
     #trainingData.to_csv('1.csv', index=False)
     #randomForest.decisionTree(X,y)

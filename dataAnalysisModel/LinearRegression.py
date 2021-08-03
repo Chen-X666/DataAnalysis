@@ -3,7 +3,7 @@
 Time:     2021/7/20 12:41
 Author:   ChenXin
 Version:  V 0.1
-File:     regression.py
+File:     LinearRegression.py
 Describe:  Github link: https://github.com/Chen-X666
 """
 import pandas as pd
@@ -17,7 +17,7 @@ from sklearn.model_selection import cross_val_score  # 交叉检验
 from sklearn.metrics import explained_variance_score, mean_absolute_error, mean_squared_error, r2_score  # 批量导入指标算法
 # 回归实验
 #***********************************回归实验**********************************************
-def regression(X,y):
+def linearRegression(X, y):
     print('='*20+"回归实验"+'='*20)
     #将数据集按照4:1的比例分为训练集和测试集
     X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=.2,random_state=0)
