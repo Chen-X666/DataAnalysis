@@ -8,7 +8,7 @@ from sklearn.model_selection import GridSearchCV  # 导入网格搜索交叉检�
 import matplotlib.pyplot as plt  # 导入图形展示库
 
 # 读取数据
-raw_data = pd.read_table('products_sales.txt', sep=',')
+raw_data = pd.read_table('data/products_sales.txt', sep=',')
 
 # 数据审查和校验
 # 数据概览
