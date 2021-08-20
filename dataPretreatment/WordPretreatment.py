@@ -40,7 +40,6 @@ def reTest():
         s1 = re.match(r'^ss', line[i])
         print(line[i])
         print(s1)
-
     print('2*************')
     for i in range(len(line)):
         s1 = re.match(r'a+', line[i])
@@ -87,6 +86,40 @@ def reTest():
 
     text = 'python is a kind of computer language, very useful...'
     print(re.sub(r'\s+', '-', text))
+
+    #strip()方法用于移除字符串头尾指定的字符（默认为空格）
+
+    # !/usr/bin/python
+    # -*- coding: UTF-8 -*-
+
+    str = "0000000     Runoob  0000000"
+    print(str)
+    str.strip('0')  # 去除首尾字符 0，str不会被改变
+    str2 = "   Runoob      "  # 去除首尾空格
+    print(str2)
+    str2.strip()
+    # 以上实例输出结果如下：
+    #     Runoob
+    #
+    #
+    # Runoob
+
+    # rstrip()删除string字符串末尾的指定字符（默认为空格）
+
+    # !/usr/bin/python
+
+    str = "     this is string example....wow!!!     "
+    print(str)
+    str.rstrip()
+    str = "88888888this is string example....wow!!!8888888"
+    print(str)
+    str.rstrip('8')
+    # 输出结果如下：
+    # this is string
+    # example....wow!!!
+    # 88888888
+    # this is string
+    # example....wow!!!
 
 
 if __name__ == '__main__':

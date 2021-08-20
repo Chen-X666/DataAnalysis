@@ -24,6 +24,7 @@ import dataAnalysisModel.KNN as knn
 import dataAnalysisModel.SVM as svm
 import dataAnalysisModel.LogisticRegression as logisticRegression
 
+
 if __name__ == '__main__':
     # #数据预处理
     # trainingData = pd.read_excel('typedata.xls', sheet_name='training')
@@ -114,7 +115,8 @@ if __name__ == '__main__':
     trainingData = pd.read_csv('1.csv')
     X = trainingData.iloc[:, :-1]
     y = trainingData.iloc[:, -1]
-    logisticRegression.LogisticRegress(X,y)
+    #logisticRegression.LogisticRegress(X,y)
+    randomForest.decisionTree(X,y)
     #regression.regression(X,y)
     #svm.SVM(X,y)
     #knn.KNN(X,y)

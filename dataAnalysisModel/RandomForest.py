@@ -62,7 +62,8 @@ def decisionTree(X,y):
     core_metrics.field_names = ['auc', 'accuracy', 'precision', 'recall', 'f1']  # 定义表格列名
     core_metrics.add_row([auc_s, accuracy_s, precision_s, recall_s, f1_s])  # 增加数据
     print('{:-^60}'.format('核心评估指标'), '\n', core_metrics)
-
+    print(fpr)
+    print(tpr)
     # ROC曲线
     plt.subplot(1, 2, 1)  # 第一个子网格
     plt.plot(fpr, tpr, label='ROC')  # 画出ROC曲线
