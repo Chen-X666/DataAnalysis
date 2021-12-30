@@ -1,0 +1,6 @@
+/.idea
+/dataAnalysisModel/__pycache__
+/dataAnalysisModelEvaluation/__pycache__/
+/venv
+/dataPretreatment/__pycache__
+/dataReading/__pycache__

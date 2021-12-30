@@ -17,6 +17,9 @@ from sklearn.model_selection import GridSearchCV  # 网格搜索
 from sklearn.metrics import accuracy_score,auc,confusion_matrix,f1_score,precision_score,recall_score,roc_curve # 分类指标库
 # 逻辑回归实验
 #***********************************逻辑回归实验**********************************************
+from dataAnalysisModelEvaluation.learningLine import plot_learning_curve
+
+
 def LogisticRegress(X,y):
     print('='*20+"逻辑回归实现"+'='*20)
     # 训练集和验证集4：1切分
@@ -51,7 +54,7 @@ def LogisticRegress(X,y):
     print('分类结果报告 \n', classifyreport)
 
     # 优化模型,选择模型最佳参数
-    parameters = {'penalty':['l2'],'C':[0.01, 0.1, 1, 10]} # 可优化参数
+    parameters = {'penalty':['l2'],'C':[0.01]} # 可优化参数
     model_gs = GridSearchCV(estimator=linear_model.LogisticRegression(max_iter=1000), param_grid=parameters,verbose=0,cv=5,n_jobs=-1,scoring='accuracy')  # 建立交叉检验模型对象，并行数与CPU一致
     model_gs.fit(X_train, y_train)  # 训练交叉检验模型
     print('{:-^60}'.format('模型最优化参数'))
@@ -89,4 +92,6 @@ def LogisticRegress(X,y):
     plt.ylabel('true positive rate')  # y轴标题
     plt.legend(loc=0)
     plt.show()  # 展示图形
+    plot_learning_curve(model_gs, X_train, X_test, y_train, y_test, score=accuracy_score)
+
 

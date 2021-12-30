@@ -28,6 +28,7 @@ def dataHistogramReading(data,columns,picWidth=2,picHigh=2):
             j = 0
             sns.distplot(data[column], ax=ax_arr[i][j])
             j = 1
+    plt.show()
 
 def dataBarReading(data,columns,picWidth=2,picHigh=2):
     #设置风格
@@ -46,6 +47,7 @@ def dataBarReading(data,columns,picWidth=2,picHigh=2):
             j = 0
             sns.barplot(x="GENDER", y="CUSTOMER_TYPE",data=data, ax=ax_arr[i][j])
             j = 1
+    plt.show()
 
 def dataBoxReading(data,columns,picWidth=2,picHigh=2):
     '''
@@ -71,6 +73,7 @@ def dataBoxReading(data,columns,picWidth=2,picHigh=2):
             j = 0
             sns.boxplot(data[column], ax=ax_arr[i][j])
             j = 1
+    plt.show()
 
 if __name__ == '__main__':
     df = pd.read_csv('1.csv')

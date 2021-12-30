@@ -60,4 +60,11 @@ def SVM(X,y):
     core_metrics.add_row([auc_s, accuracy_s, precision_s, recall_s, f1_s])  # 增加数据
     print('{:-^60}'.format('核心评估指标'), '\n', core_metrics)
 
+if __name__ == '__main__':
+    trainingData = pd.read_csv('guichuMark.csv', encoding='GBK')
+    #dataReading.dataSimpleReading(trainingData)
+    # #x取除了最后一行，y取最后一行
+    X = trainingData.iloc[:, :-1]
+    y = trainingData.iloc[:, -1]
+    SVM(X,y)
 

@@ -8,11 +8,10 @@ import matplotlib.pyplot as plt  # 导入Matplotlib
 from mpl_toolkits.mplot3d import Axes3D  # 导入3D样式库
 import pandas as pd
 
+
 # 数据准备
-#raw_data = np.loadtxt('outlier.txt', delimiter=' ')  # 读取数据
-df = pd.read_csv('1.csv')
-print(df.info())
-raw_data = np.array(df)
+raw_data = np.loadtxt('data/outlier.txt', delimiter=' ')  # 读取数据
+
 
 print(raw_data.shape)
 train_set = raw_data[:900, :]  # 训练集
