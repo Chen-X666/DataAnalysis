@@ -42,14 +42,14 @@ def decisionTree(X,y):
                  #'min_samples_split': range(10, 500, 20),
                   #'max_features': range(4, 6, 2)
                   }
-    #
-    parameters = {'n_estimators': [20],  # 要优化的参数信息
+
+    parameters = {'n_estimators': [25],  # 要优化的参数信息
                   'max_depth': [4],
                  # 'min_samples_split': [100],
                   #'max_features': range(4, 10, 2)
                   }
     # parameters = {'n_estimators': [10],  # 要优化的参数信息
-    #               'max_depth': [14],
+    #               'max_depth': [16],
     #              #'min_samples_split': [100],
     #               #'max_features': range(4, 10, 2)
     #               }

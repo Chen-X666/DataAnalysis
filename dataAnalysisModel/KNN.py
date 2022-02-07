@@ -74,6 +74,7 @@ def KNN(X,y):
     ]
 
     # 定义网格搜索的对象grid_search，
+    GridSearchCV.set_params()
     model_gs = GridSearchCV(estimator=knn_clf, param_grid=param_search, cv=5, n_jobs=-1)  # 建立交叉检验模型对象，并行数与CPU一致
     model_gs.fit(X_train, y_train)  # 训练交叉检验模型
     print('{:-^60}'.format('模型最优化参数'))

@@ -12,27 +12,46 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, precision_score, accuracy_score, recall_score
 from sklearn.model_selection import learning_curve
 import seaborn as sns
-
+import pandas as pd
 
 def plot_learning_curve(algo,X_train,X_test,y_train,y_test,score=mean_squared_error):
-    train_score = []
-    test_score = []
 
-    for i in range(100,len(X_train)+100,100):
+    # df = pd.DataFrame(columns=['num','score', 'score_type'])
+    #
+    # for i in range(10,len(X_train)+10,10):
+    #
+    #     algo.fit(X_train[:i],y_train[:i])
+    #     y_train_predict = algo.predict(X_train[:i])
+    #     y_test_predict = algo.predict(X_test)
+    #     # 新插入的行一定要加 index,不然会报错
+    #     df1 = pd.DataFrame([i,(score(y_train[:i],y_train_predict)).round(3),'train']).T
+    #     # 修改df4的column和df3的一致
+    #     df1.columns = df.columns
+    #     # 新插入的行一定要加 index,不然会报错
+    #     df2 = pd.DataFrame([i,(score(y_test,y_test_predict)).round(3),'test']).T
+    #     # 修改df4的column和df3的一致
+    #     df2.columns = df.columns
+    #     # 把两个dataframe合并，需要设置 ignore_index=True
+    #     df = pd.concat([df, df1,df2], ignore_index=True)
+    df = pd.read_csv('score.csv')
+    print(df)
+    print(df.dtypes)
+    df['num'] = df['num'].astype('int')
 
-        algo.fit(X_train[:i],y_train[:i])
-        y_train_predict = algo.predict(X_train[:i])
-        train_score.append((score(y_train[:i],y_train_predict)).round(3))
-
-        y_test_predict = algo.predict(X_test)
-        test_score.append((score(y_test,y_test_predict)).round(3))
+    df['score'] = df['score'].astype('float')
+    df.to_csv('score.csv',index=False)
     sns.set()
     matplotlib.rcParams['font.sans-serif'] = ['SimHei']
     matplotlib.rcParams['axes.unicode_minus'] = False
-    plt.plot([i for i in range(100,len(X_train)+100,100)], np.sqrt(train_score),label = 'Train')
-    plt.plot([i for i in range(100,len(X_train)+100,100)], np.sqrt(test_score),label = 'Test')
-    plt.legend()
-    plt.axis([100,len(X_train)+100,0,1])
+    palette = sns.xkcd_palette(["windows blue"])
+    sns.lineplot(x="num", y="score", data=df,style='类型')
+    plt.axis([10,len(X_train)+10,0,1])
+
+    #plt.plot([i for i in range(10,len(X_train)+10,10)], np.sqrt(train_score),label = 'Train')
+    #plt.plot([i for i in range(10,len(X_train)+10,10)], np.sqrt(test_score),label = 'Test')
+    #plt.legend()
+
+    #plt.axis([10,len(X_train)+10,0,1])
     plt.xlabel("训练集数据量")
     plt.ylabel("准确度(Accuracy)")
     plt.show()
