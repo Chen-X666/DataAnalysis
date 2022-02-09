@@ -1,38 +1,38 @@
 # DataAnalysis
-##Model
-###classification
+## Model
+### classification
 RandomForest |
 SVM|
 Distribution|
 KNN|
-###Regression
+### Regression
 LinearRegression|
 LogisticRegression
-###text2vec
+### text2vec
 word2vec|
 tfIDF2vec
-###abNoramalDetect
-###Apriori
-###Cluster
+### abNoramalDetect
+### Apriori
+### Cluster
 K-mean|
 DBSCAN
-###dimensionReduction
+### dimensionReduction
 pca|
 tsne
-##Evaluation
+## Evaluation
 drawLine|
 learningLine|
 SegWordEvaluation
-##datePretreatment
-###dataBinning
-###discretization
-###labelEncoder
-###oneHot
-###outlierDection
-###sampling
-###SmoothOnehot
-###SMOTE
-###standardization
+## datePretreatment
+### dataBinning
+### discretization
+### labelEncoder
+### oneHot
+### outlierDection
+### sampling
+### SmoothOnehot
+### SMOTE
+### standardization
 ZScore|
 MaxMin|
 MaxAbsScaler|
