@@ -1,0 +1,4 @@
+﻿pip install DBUtils
+pip install pymysql
+pip install gensim
+pip install jieba

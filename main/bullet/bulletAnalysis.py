@@ -20,17 +20,14 @@ import dataAnalysisModel.RandomForest as randomForest
 from dataReading.dataPicReading import dataBoxReading, dataHistogramReading
 import dataPretreatment.SMOTE
 import dataAnalysisModel.abNormalDetect as abNormalDetect
+import joblib
 
 if __name__ == '__main__':
-    trainingData = pd.read_csv('trainingData.csv',encoding='GBK')
+    trainingData = pd.read_csv('CandidateWord.csv',encoding='GBK')
     #.sort_values(by=['col2','col3'],ascending=False)
     #trainingData['Word'] =trainingData['Word'].str.len()
     del trainingData['Word']
     del trainingData['Frequence']
-    #del trainingData['TF']
-    #del trainingData['IDF']
-    #del trainingData['TF-IDF']
-    # del trainingData['Bvid']
     # del trainingData['Tname']
     #del trainingData['Num']
     # del trainingData['View']
@@ -72,7 +69,7 @@ if __name__ == '__main__':
     #X,y = SMOTE.sample_balance(X,y)
     #普通样本均衡
     print(trainingData)
-    ones_subset = trainingData.loc[trainingData["Mark"] == 1, :][0:5000]
+    ones_subset = trainingData.loc[trainingData["Mark"] == 1, :][0:3000]
     print(len(ones_subset))
     number_of_1s = len(ones_subset)
     zeros_subset = trainingData.loc[trainingData["Mark"] == 0, :]
@@ -86,6 +83,7 @@ if __name__ == '__main__':
     print(y)
     print('开始构建模型')
     randomForest = randomForest.decisionTree(X,y)
+    joblib.dump(randomForest, 'bulletNewWordDiscoveryRandomForest.model')
     #logisticRegression.LogisticRegress(X,y)
     #knn.KNN(X,y)
     print('开始预测')
