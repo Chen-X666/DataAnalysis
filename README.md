@@ -30,6 +30,10 @@ SegWordEvaluation
 ### oneHot
 ### outlierDection
 ### sampling
+simpleSampling|
+systematicSampling|
+stratifiedSampling|
+ClusterSampling
 ### SmoothOnehot
 ### SMOTE
 ### standardization
@@ -37,5 +41,13 @@ ZScore|
 MaxMin|
 MaxAbsScaler|
 RobustScaler|
+## Reading
+### datePicReading
+### dateReading
+dataSimpleReading|
+dataStringCount|
+label_samples_summary|
+relatedAnalysisReading|
+### dataWordCloud
 
 

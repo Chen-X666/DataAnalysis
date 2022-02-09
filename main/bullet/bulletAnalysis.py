@@ -6,20 +6,9 @@ Version:  V 0.1
 File:     bulletAnalysis.py
 Describe:  Github link: https://github.com/Chen-X666
 """
-from math import log
 
-import dataAnalysisModel.KNN as knn
 import pandas as pd
-import dataAnalysisModel.SVM as svn
-from dataPretreatment import SMOTE, outlierDection, dataBinning, standardization, labelEncoder
-import numpy as np
 from dataReading import dataReading
-import dataAnalysisModel.LogisticRegression as logisticRegression
-import dataAnalysisModel.LinearRegression as linearRegression
-import dataAnalysisModel.RandomForest as randomForest
-from dataReading.dataPicReading import dataBoxReading, dataHistogramReading
-import dataPretreatment.SMOTE
-import dataAnalysisModel.abNormalDetect as abNormalDetect
 import joblib
 
 if __name__ == '__main__':
@@ -82,7 +71,7 @@ if __name__ == '__main__':
     print(X)
     print(y)
     print('开始构建模型')
-    randomForest = randomForest.decisionTree(X,y)
+    randomForest = RandomForest.decisionTree(X, y)
     joblib.dump(randomForest, 'bulletNewWordDiscoveryRandomForest.model')
     #logisticRegression.LogisticRegress(X,y)
     #knn.KNN(X,y)

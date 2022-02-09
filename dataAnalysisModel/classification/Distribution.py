@@ -13,8 +13,6 @@ import prettytable
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 
-
-
 def cutTree(training,text):
     X_train = training[:, 0:-1]
     y_train = training[:, -1]

@@ -7,23 +7,12 @@ File:     6.21yj-homework.py
 Describe: Write during the internship at Hikvison, Github link: https://github.com/Chen-X666
 """
 import pandas as pd
-import numpy as np
-import dataPretreatment.oneHot as oneHot
 import dataPretreatment.dataBinning as dataBinning
 import dataPretreatment.labelEncoder as labelEncoder
 import dataReading.dataReading as dataReading
 import dataPretreatment.SMOTE as SMOTE
-import dataPretreatment.standardization as standardization
-import dataReading.dataPicReading as dataPicReading
-import seaborn as sns
 import dataPretreatment.outlierDection as outlierDection
 import dataPretreatment.Clustering as clustering
-import dataAnalysisModel.LinearRegression as regression
-import dataAnalysisModel.RandomForest as randomForest
-import dataAnalysisModel.KNN as knn
-import dataAnalysisModel.SVM as svm
-import dataAnalysisModel.LogisticRegression as logisticRegression
-
 
 if __name__ == '__main__':
     #数据预处理
@@ -121,7 +110,7 @@ if __name__ == '__main__':
     #svm.SVM(X,y)
     #knn.KNN(X,y)
     #trainingData.to_csv('1.csv', index=False)
-    randomForest = randomForest.decisionTree(X,y)
+    randomForest = RandomForest.decisionTree(X, y)
     test_data = pd.read_csv('./test.csv')
     print("输入特征数据：{}".format(test_data.T))
     print("模型预测结果：{}".format(randomForest.predict(test_data)))
