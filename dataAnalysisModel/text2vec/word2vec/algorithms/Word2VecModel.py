@@ -12,14 +12,14 @@ from dataAnalysisModel.text2vec.word2vec.util.JiebaUtil import jieba_util
 from dataAnalysisModel.text2vec.word2vec.util.PropertiesUtil import prop
 from gensim.models import word2vec
 from dataAnalysisModel.text2vec.word2vec.algorithms.OriginModel import origin_model
-
+from gensim import models
 
 class Word2VecModel(object):
     def __init__(self):
         self.db_pool_util = DbPoolUtil(db_type="mysql")
         self.train_data_path = "gen/train_data.txt"
-        self.origin_model_path = "model/oriw2v.model"
-        self.model_path = "model/w2v.model"
+        self.origin_model_path = "model/sgns.target.word-word.dynwin5.thr10.neg5.dim300.iter5.bz2"
+        self.model_path = "model/sgns.target.word-word.dynwin5.thr10.neg5.dim300.iter5.bz2"
         self.model = None
         # 未登录词进入需考虑最小词频
         self.min_count = int(prop.get_config_value("config/w2v.properties", "min_count"))
@@ -77,7 +77,7 @@ class Word2VecModel(object):
         if not os.path.exists(self.model_path):
             print("无词嵌入模型，进行训练")
             self.train_model()
-        self.model = word2vec.Word2Vec.load(self.model_path)
+        self.model = models.KeyedVectors.load_word2vec_format(self.model_path)
         print("词嵌入模型加载完毕")
 
     def get_word_vector(self, words, extra=0):

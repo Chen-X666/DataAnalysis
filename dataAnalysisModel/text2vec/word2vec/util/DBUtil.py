@@ -1,13 +1,14 @@
 # -*- coding:utf-8 -*-
+import os
 
 from dataAnalysisModel.text2vec.word2vec.util.PropertiesUtil import prop
 from dbutils.pooled_db import PooledDB
 import importlib
 
-
+CWD = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..'))
 
 class DbPoolUtil(object):
-    def __init__(self, config_file=r'C:/Users/Chen/Desktop/dataAnalysisPlatform/dataAnalysisModel/text2vec/word2vec/config/jdbc.properties', db_type='mysql'):
+    def __init__(self, config_file=CWD+'/config/jdbc.properties', db_type='mysql'):
         """
         初始化
         :param config_file:  配置文件地址

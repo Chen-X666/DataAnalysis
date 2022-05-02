@@ -53,3 +53,4 @@ def relatedAnalysisReading(data,columns):
     print(X_combine.corr().round(2))  # 输出所有输入特征变量以及预测变量的相关性矩阵
     sns.pairplot(data=X_combine.corr().round(2),diag_kind='kde')
     sns.pairplot(data[columns])
+    plt.show()

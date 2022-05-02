@@ -3,13 +3,15 @@
 Created on 2018年6月1日
 
 """
+import os
 
+CWD = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..'))
 
 class PropertiesUtil(object):
     # 缓存配置
     __file_dict = {}
 
-    def get_config_dict(self, file_path="C:/Users/Chen/Desktop/dataAnalysisPlatform/dataAnalysisModel/text2vec/word2vec/config/config.properties"):
+    def get_config_dict(self, file_path=CWD+"/config/config.properties"):
         """
         获取资源文件，形成字典
         :param file_path: 文件路径
