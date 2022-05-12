@@ -7,3 +7,6 @@
 /dataAnalysisModel/text2vec/word2vec/util/__pycache__
 /dataAnalysisModel/text2vec/word2vec/algorithms/__pycache__
 /DatabaseUtil/__pycache__
+/dataAnalysisModel/text2vec/word2vec/model/
+/dsProject1/.idea/
+/main/bulletCorpusAnalysis/.ipynb_checkpoints
