@@ -9,7 +9,6 @@ Describe:  Github link: https://github.com/Chen-X666
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt  # 画图工具
-import pydotplus
 from sklearn.model_selection import train_test_split, learning_curve  # 数据切割
 import prettytable # 图表打印工具
 from sklearn.model_selection import GridSearchCV  # 网格搜索

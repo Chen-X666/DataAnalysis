@@ -7,8 +7,8 @@ File:     6.21yj-homework.py
 Describe: Write during the internship at Hikvison, Github link: https://github.com/Chen-X666
 """
 import pandas as pd
-import dataPretreatment.dataBinning as dataBinning
-import dataPretreatment.labelEncoder as labelEncoder
+import dataPretreatment.dataEncoder.dataBinning as dataBinning
+import dataPretreatment.dataEncoder.labelEncoder as labelEncoder
 import dataReading.dataReading as dataReading
 import dataPretreatment.SMOTE as SMOTE
 import dataPretreatment.outlierDection as outlierDection
