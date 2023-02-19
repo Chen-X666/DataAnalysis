@@ -3,7 +3,7 @@
 /dataAnalysisModelEvaluation/__pycache__/
 /venv
 /dataPretreatment/__pycache__
-/dataReading/__pycache__
+/ExploratoryDataAnalysis/__pycache__
 /dataAnalysisModel/text2vec/word2vec/util/__pycache__
 /dataAnalysisModel/text2vec/word2vec/algorithms/__pycache__
 /DatabaseUtil/__pycache__

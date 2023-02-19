@@ -8,7 +8,7 @@ Describe:  Github link: https://github.com/Chen-X666
 """
 
 import pandas as pd
-from dataReading import dataReading
+from ExploratoryDataAnalysis import dataReview
 import joblib
 
 if __name__ == '__main__':
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     #del trainingData['Den']
     #trainingData['Frequence'] = log(trainingData['Frequence'])
     trainingData = trainingData[trainingData['Mark'] >= 0]
-    dataReading.dataSimpleReading(trainingData)
+    dataReading.dataSimpleReview(trainingData)
     #trainingData[]
     # 去离群点
     #trainingData = trainingData[trainingData['Frequence'] <= 36000]
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     X = clean_df.iloc[:, :-1]
     y = clean_df.iloc[:, -1]
     #建立决策树模型
-    #dataReading.dataSimpleReading(X)
+    #ExploratoryDataAnalysis.dataSimpleReading(X)
     print(X)
     print(y)
     print('开始构建模型')

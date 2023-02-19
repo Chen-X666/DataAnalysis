@@ -9,16 +9,17 @@ Describe: Write during the internship at Hikvison, Github link: https://github.c
 import pandas as pd
 import dataPretreatment.dataEncoder.dataBinning as dataBinning
 import dataPretreatment.dataEncoder.labelEncoder as labelEncoder
-import dataReading.dataReading as dataReading
+import ExploratoryDataAnalysis.dataReview as dataReading
 import dataPretreatment.SMOTE as SMOTE
 import dataPretreatment.outlierDection as outlierDection
 import dataPretreatment.Clustering as clustering
+from dataAnalysisModel.classification import RandomForest
 
 if __name__ == '__main__':
     #数据预处理
     trainingData = pd.read_excel('typedata.xls', sheet_name='training')
     #查看数据状态
-    dataReading.dataSimpleReading(trainingData)
+    dataReading.dataSimpleReview(trainingData)
     # columns = ['AGE','CUSTOMER_CLASS',
     #           'LINE_TENURE','SUBPLAN','SUBPLAN_PREVIOUS','NUM_TEL','NUM_ACT_TEL']
     # columns = ['GENDER', 'MARITAL_STATUS',
@@ -30,7 +31,7 @@ if __name__ == '__main__':
     trainingData['AGE'] = pd.to_numeric(trainingData['AGE'], errors='coerce')
     # columns = ['GENDER', 'MARITAL_STATUS',
     #            'PAY_METD', 'PAY_METD_PREV', 'CUSTOMER_TYPE']
-    # dataReading.dataStringCount(data=trainingData,columns=columns)
+    # ExploratoryDataAnalysis.dataStringCount(data=trainingData,columns=columns)
     #去重
     trainingData.drop_duplicates()
     #年龄分箱
@@ -50,6 +51,7 @@ if __name__ == '__main__':
     trainingData['AGE'] = pd.to_numeric(trainingData['AGE'], errors='coerce')
     #去空白值
     trainingData.dropna(how='any', axis=0, inplace=True)
+
     #support字段的聚类
     trainingData['SUBPLAN'] = clustering.kmeanClustering(data1=trainingData,columns='SUBPLAN',x='CUSTOMER_TYPE',y="SUBPLAN",num = 2)
     trainingData['SUBPLAN_PREVIOUS'] = clustering.kmeanClustering(data1=trainingData, columns='SUBPLAN_PREVIOUS', x='CUSTOMER_TYPE',
@@ -77,7 +79,7 @@ if __name__ == '__main__':
     # 相关性分析
     #columns = ['AGE', 'GENDER','MARITAL_STATUS','CUSTOMER_CLASS','LINE_TENURE', 'SUBPLAN',
     #'SUBPLAN_PREVIOUS', 'NUM_TEL', 'NUM_ACT_TEL','PAY_METD','PAY_METD_PREV','CUSTOMER_TYPE']
-    #dataReading.relatedAnalysisReading(data=trainingData,columns=columns)
+    #ExploratoryDataAnalysis.relatedAnalysisReading(data=trainingData,columns=columns)
     '''
     result:
                 NUM_TEL     NUM_ACT_TEL

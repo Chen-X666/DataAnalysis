@@ -10,13 +10,12 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns
 
+sns.set()
 
 def dataHistogramReading(data,columns,picWidth=2,picHigh=2):
     #设置风格
     if len(columns)>4 and picHigh<=2 and picWidth<=2 : return print('超出默认图数4,请定义width与high')
     fig, ax_arr = plt.subplots(picHigh, picWidth, figsize=(100, 50))
-    sns.set_theme(style='ticks', font='Times New Roman')
-    sns.set_context('paper')
     #绘制多子图
     i,j = 0,0
     for column in columns:
@@ -30,24 +29,51 @@ def dataHistogramReading(data,columns,picWidth=2,picHigh=2):
             j = 1
     plt.show()
 
+#主要为了处理分类数据
 def dataBarReading(data,columns,picWidth=2,picHigh=2):
     #设置风格
     if len(columns)>4 and picHigh<=2 and picWidth<=2 : return print('超出默认图数4,请定义width与high')
     fig, ax_arr = plt.subplots(picHigh, picWidth, figsize=(100, 50))
-    sns.set_theme(style='ticks', font='Times New Roman')
-    sns.set_context('paper')
     #绘制多子图
     i,j = 0,0
     for column in columns:
         if j < picWidth:
-            sns.barplot(x="GENDER", y="CUSTOMER_TYPE",data=data,ax=ax_arr[i][j])
+            ax_arr[i][j].set_xlabel(column)
+            sns.barplot(x="SeriousDlqin2yrs",y=column,data=data,ax=ax_arr[i][j])
             j = j +1
         else:
             i = i + 1
             j = 0
-            sns.barplot(x="GENDER", y="CUSTOMER_TYPE",data=data, ax=ax_arr[i][j])
+            ax_arr[i][j].set_xlabel(column)
+            sns.barplot(x="SeriousDlqin2yrs",y=column,data=data,ax=ax_arr[i][j])
             j = 1
     plt.show()
+
+
+# reference: https://cloud.tencent.com/developer/article/1506466
+def dataScatterPlt(data,columns,pic,picWidth=2,picHigh=2):
+    if len(columns)>4 and picHigh<=2 and picWidth<=2: return print('超出默认图数4,请定义width与high')
+    fig, ax_arr = plt.subplots(picHigh, picWidth, figsize=(10, 5))
+    #绘制多子图
+    i,j = 0,0
+    for column in columns:
+        if j < picWidth:
+            ax_arr[i][j].set_xlabel(column)
+            sns.scatterplot(data[column],ax=ax_arr[i][j])
+            ax_arr[i][j].set_xticks([])
+            j = j +1
+        else:
+            i = i + 1
+            j = 0
+            # 设置坐标轴
+            ax_arr[i][j].set_xlabel(column)
+            sns.scatterplot(data[column], ax=ax_arr[i][j])
+            # 去除坐标轴刻度
+            ax_arr[i][j].set_xticks([])
+
+            j = 1
+    plt.show()
+
 
 def dataBoxReading(data,columns,picWidth=2,picHigh=2):
     '''
@@ -57,21 +83,25 @@ def dataBoxReading(data,columns,picWidth=2,picHigh=2):
     picWidth: 宽度放几个图
     :return: 无
     '''
-    #设置风格
     if len(columns)>4 and picHigh<=2 and picWidth<=2: return print('超出默认图数4,请定义width与high')
     fig, ax_arr = plt.subplots(picHigh, picWidth, figsize=(10, 5))
-    sns.set_theme(style='ticks', font='Times New Roman')
-    sns.set_context('paper')
     #绘制多子图
     i,j = 0,0
     for column in columns:
         if j < picWidth:
+            ax_arr[i][j].set_xlabel(column)
             sns.boxplot(data[column],ax=ax_arr[i][j])
+            ax_arr[i][j].set_xticks([])
             j = j +1
         else:
             i = i + 1
             j = 0
+            # 设置坐标轴
+            ax_arr[i][j].set_xlabel(column)
             sns.boxplot(data[column], ax=ax_arr[i][j])
+            # 去除坐标轴刻度
+            ax_arr[i][j].set_xticks([])
+
             j = 1
     plt.show()
 

@@ -3,14 +3,17 @@
 Time:     2021/6/22 21:50
 Author:   ChenXin
 Version:  V 0.1
-File:     dataReading.py
+File:     ExploratoryDataAnalysis.py
 Describe: Github link: https://github.com/Chen-X666
 """
+import matplotlib
 import pandas as pd
 from matplotlib import pyplot as plt
 import re
 import seaborn as sns
-def dataSimpleReading(data):
+
+matplotlib.use('TkAgg')
+def dataSimpleReview(data):
     # 显示所有列 行
     pd.set_option('display.max_columns', None)
     pd.set_option('display.max_rows', None)
@@ -19,10 +22,14 @@ def dataSimpleReading(data):
     print(df.head().append(df.tail()))
     print('{:-^60}'.format('数据基本统计分析'))
     print(df.describe())
+    print('{:-^60}'.format('数据集存在重复值的行列'))
+    print(data[data.duplicated(keep=False)])
     print('{:-^60}'.format('数据类型查看'))
     print(df.info())
     print('{:-^60}'.format('数据峰度查看；如果训练集和测试集分布不一致，就要考虑进行分布转换'))
-
+    print(df.skew())
+    print('{:-^60}'.format('数据残缺比例'))
+    print(((df.isnull().sum())/df.shape[0]).sort_values(ascending=False).map(lambda x:"{:.2%}".format(x)))
     print('{:-^60}'.format('列 空值查看'))
     print(df.isnull().any(axis=0).sum())
     print('{:-^60}'.format('行 空值查看'))
@@ -37,20 +44,22 @@ def dataStringCount(data,columns):
         print(data[i].value_counts())
 
 # 类样本均衡审查
-def label_samples_summary(df):
+def label_samples_summary(df,column):
     '''
     查看每个类的样本量分布
     :param df: 数据框
     :return: 无
     '''
     print('{:*^60}'.format('Labesl samples count:'))
-    print(df.iloc[:, 0].groupby(df.iloc[:, -1]).count())
+    print(df.groupby([column])[column].count())
 
 # 相关性分析
-def relatedAnalysisReading(data,columns):
+def relatedAnalysis(data, columns):
     X_combine = pd.DataFrame(data[columns])
     print('{:*^60}'.format('相关系数分析:'))
+    corr = X_combine.corr().round(2)
     print(X_combine.corr().round(2))  # 输出所有输入特征变量以及预测变量的相关性矩阵
-    sns.pairplot(data=X_combine.corr().round(2),diag_kind='kde')
-    sns.pairplot(data[columns])
+    sns.heatmap(corr, cmap='Blues', annot=True)
+    #sns.pairplot(data=corr,diag_kind='kde')#非常慢
     plt.show()
+

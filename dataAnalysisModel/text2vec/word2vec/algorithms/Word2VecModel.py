@@ -64,7 +64,7 @@ class Word2VecModel(object):
         print("额外语料训练")
         extra_sentences = word2vec.LineSentence(self.train_data_path)
         model.build_vocab(extra_sentences, update=True)
-        model.train(extra_sentences, total_examples=model.corpus_count, epochs=model.iter)
+        model.train_woe(extra_sentences, total_examples=model.corpus_count, epochs=model.iter)
         model.save(self.model_path)
         print("额外语料训练完毕")
 
@@ -91,7 +91,7 @@ class Word2VecModel(object):
             if words not in self.model:
                 more_sentences = [[words, ] for i in range(self.min_count)]
                 self.model.build_vocab(more_sentences, update=True)
-                self.model.train(more_sentences, total_examples=self.model.corpus_count, epochs=self.model.iter)
+                self.model.train_woe(more_sentences, total_examples=self.model.corpus_count, epochs=self.model.iter)
                 self.model.save(self.model_path)
         rst = None
         if words in self.model:
@@ -116,7 +116,7 @@ class Word2VecModel(object):
                 if item not in self.model:
                     more_sentences = [words for i in range(self.min_count)]
                     self.model.build_vocab(more_sentences, update=True)
-                    self.model.train(more_sentences, total_examples=self.model.corpus_count, epochs=self.model.iter)
+                    self.model.train_woe(more_sentences, total_examples=self.model.corpus_count, epochs=self.model.iter)
                     self.model.save(self.model_path)
                     break
         return self.get_sentence_embedding(words)

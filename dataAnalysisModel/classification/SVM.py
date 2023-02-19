@@ -62,7 +62,7 @@ def SVM(X,y):
 
 if __name__ == '__main__':
     trainingData = pd.read_csv('guichuMark.csv', encoding='GBK')
-    #dataReading.dataSimpleReading(trainingData)
+    #ExploratoryDataAnalysis.dataSimpleReading(trainingData)
     # #x取除了最后一行，y取最后一行
     X = trainingData.iloc[:, :-1]
     y = trainingData.iloc[:, -1]
