@@ -16,12 +16,14 @@ from sklearn.svm import SVR  # SVR
 from sklearn.model_selection import cross_val_score  # 交叉检验
 from sklearn.metrics import explained_variance_score, mean_absolute_error, mean_squared_error, r2_score  # 批量导入指标算法
 # 回归实验
+"""
+SVM=Support Vector Machine 是支持向量
+SVC=Support Vector Classification就是支持向量机用于分类
+SVR=Support Vector Regression.就是支持向量机用于回归分析
+"""
 #***********************************回归实验**********************************************
-def linearRegression(X, y):
+def linearRegression(X_train, X_test, y_train, y_test):
     print('='*20+"回归实验"+'='*20)
-    #将数据集按照4:1的比例分为训练集和测试集
-    X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=.2,random_state=0)
-
     # 查看总样本量、总特征数
     n_samples,n_features=X_train.shape
     print('{:-^60}'.format('样本数据审查'))

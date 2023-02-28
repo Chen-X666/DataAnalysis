@@ -36,7 +36,7 @@ def LogisticRegress(X_train, X_test, y_train, y_test):
     print('样本量: {0} | 特征数: {1}'.format(n_samples,n_features))
 
     # 训练逻辑回归模型
-    # parameters = {'penalty':['l1','l2'],'C':[0.001,0.01,0.1,1,10,100],'solver':['lbfgs']} # 可优化参数
+    parameters = {'penalty':['l1','l2'],'C':[0.001,0.01,0.1,1,10,100],'solver':['lbfgs']} # 可优化参数
     parameters = {'penalty': ['l2'], 'C': [0.1], 'solver': ['lbfgs']}  # 最优参数
     model_t = GridSearchCV(estimator=linear_model.LogisticRegression(max_iter=1000), param_grid=parameters,verbose=0,cv=10,n_jobs=-1,scoring='roc_auc')  # 建立交叉检验模型对象，并行数与CPU一致
     model_t.fit(X_train, y_train)  # 训练交叉检验模型

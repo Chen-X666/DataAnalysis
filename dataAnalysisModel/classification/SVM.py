@@ -13,12 +13,10 @@ from sklearn.svm import SVC  # SVC
 from sklearn.model_selection import train_test_split # 数据切割
 from sklearn.model_selection import GridSearchCV  # 网格搜索
 from sklearn.metrics import accuracy_score,auc,confusion_matrix,f1_score,precision_score,recall_score,roc_curve # 分类指标库
-def SVM(X,y):
+def SVM(X_train, X_test, y_train, y_test):
     # SVM模型实验
     # ***********************************SVM模型实验**********************************************
     print('=' * 20 + "SVM模型实现" + '=' * 20)
-    # 将数据集按照4:1的比例分为训练集和测试集
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2, random_state=0)
 
     # 查看总样本量、总特征数
     n_samples, n_features = X_train.shape

@@ -1,33 +1,48 @@
 # DataAnalysis
+This program offers the interface for data analytics, 
+most of them use the cross-validation and grid-search to find the optimal parameters. 
+In this way, you just only adjust a little bit of code to fit your model. 
+Meanwhile, this program can be as a practice for anyone to learn the machine learning.
 ## Model
-### classification
-RandomForest |
-SVM|
-Distribution|
-KNN|
+### Classification
+Logistic Regression |
+Random Forest |
+SVM |
+Distribution |
+KNN |
+XGBoost |
+KNN |
+classificationMetrics |
 ### Regression
-LinearRegression|
-LogisticRegression
+Linear Regression |
+### StatisticModel (from 'statsmodels')
+Simple Exponential Smoothing | 
+Holt’s linear Exponential Smoothing | 
+Holt-Winter Smoothing|
+ARIMA | 
 ### text2vec
-word2vec|
-tfIDF2vec
+word2vec | 
+word2tfIDF | 
+doc2vec | 
 ### abNoramalDetect
 ### Apriori
 ### Cluster
 K-mean|
-DBSCAN
+DBSCAN | 
 ### dimensionReduction
-pca|
-tsne
+PCA |
+tSNE | 
 ## Evaluation
-drawLine|
-learningLine|
-SegWordEvaluation
+drawLine |
+learningLine | 
+SegWordEvaluation |
 ## datePretreatment
-### dataBinning
+### dataEncoder(simple)
+Binning | 
+Label Encoder | 
+One Hot  | 
+WoE(include IV filter) | 
 ### discretization
-### labelEncoder
-### oneHot
 ### outlierDection
 ### sampling
 simpleSampling|
@@ -37,17 +52,17 @@ ClusterSampling
 ### SmoothOnehot
 ### SMOTE
 ### standardization
-ZScore|
-MaxMin|
-MaxAbsScaler|
-RobustScaler|
+ZScore |
+MaxMin |
+MaxAbsScaler |
+RobustScaler |
 ## Reading
 ### datePicReading
 ### dateReading
-dataSimpleReading|
-dataStringCount|
-label_samples_summary|
-relatedAnalysisReading|
+dataSimpleReading |
+dataStringCount |
+label_samples_summary |
+relatedAnalysisReading |
 ### dataWordCloud
 
 

@@ -62,7 +62,7 @@ def decisionTree(X_train, X_test, y_train, y_test):
     ConfusionMatrix(y_test, pre_y)
 
     # 核心评估指标：accuracy，precision，recall，f1分数
-    # valueEvaluation(y_test, pre_y, y_score)
+    valueEvaluation(y_test, pre_y, y_score)
 
     #绘制学习曲线，调到最优参后再绘制
     #plot_learning_curve(model_gs, X_train, X_test, y_train, y_test)

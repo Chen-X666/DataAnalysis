@@ -30,7 +30,7 @@ def dataHistogramReading(data,columns,picWidth=2,picHigh=2):
     plt.show()
 
 #主要为了处理分类数据
-def dataBarReading(data,columns,picWidth=2,picHigh=2):
+def dataBarReading(data,columns,picWidth=2,picHigh=2,y_column_name=''):
     #设置风格
     if len(columns)>4 and picHigh<=2 and picWidth<=2 : return print('超出默认图数4,请定义width与high')
     fig, ax_arr = plt.subplots(picHigh, picWidth, figsize=(100, 50))
@@ -39,13 +39,13 @@ def dataBarReading(data,columns,picWidth=2,picHigh=2):
     for column in columns:
         if j < picWidth:
             ax_arr[i][j].set_xlabel(column)
-            sns.barplot(x="SeriousDlqin2yrs",y=column,data=data,ax=ax_arr[i][j])
+            sns.barplot(x=y_column_name,y=column,data=data,ax=ax_arr[i][j])
             j = j +1
         else:
             i = i + 1
             j = 0
             ax_arr[i][j].set_xlabel(column)
-            sns.barplot(x="SeriousDlqin2yrs",y=column,data=data,ax=ax_arr[i][j])
+            sns.barplot(x=y_column_name,y=column,data=data,ax=ax_arr[i][j])
             j = 1
     plt.show()
 

@@ -29,7 +29,7 @@ def dataSimpleReview(data):
     print('{:-^60}'.format('数据峰度查看；如果训练集和测试集分布不一致，就要考虑进行分布转换'))
     print(df.skew())
     print('{:-^60}'.format('数据残缺比例'))
-    print(((df.isnull().sum())/df.shape[0]).sort_values(ascending=False).map(lambda x:"{:.2%}".format(x)))
+    print(((df.isnull().sum())/df.shape[0]).sort_values(ascending=False).map(lambda x:"{:.6%}".format(x)))
     print('{:-^60}'.format('列 空值查看'))
     print(df.isnull().any(axis=0).sum())
     print('{:-^60}'.format('行 空值查看'))
