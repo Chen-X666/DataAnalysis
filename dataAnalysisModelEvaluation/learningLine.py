@@ -18,7 +18,7 @@ def plot_learning_curve(algo,X_train,X_test,y_train,y_test,score=mean_squared_er
 
     df = pd.DataFrame(columns=['num','score', 'score_type'])
 
-    for i in range(30,len(X_train)+100,50):
+    for i in range(30,len(X_train)+100,500):
 
         algo.fit(X_train[:i],y_train[:i])
         y_train_predict = algo.predict(X_train[:i])
@@ -51,7 +51,7 @@ def plot_learning_curve(algo,X_train,X_test,y_train,y_test,score=mean_squared_er
     #plt.plot([i for i in range(10,len(X_train)+10,10)], np.sqrt(train_score),label = 'Train')
     #plt.plot([i for i in range(10,len(X_train)+10,10)], np.sqrt(test_score),label = 'Test')
     #plt.legend()
-
+    print('finished')
     #plt.axis([10,len(X_train)+10,0,1])
     plt.xlabel("The number of train set")
     plt.ylabel("MSE")

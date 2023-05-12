@@ -3,7 +3,7 @@
 Time:     2021/11/1 23:40
 Author:   ChenXin
 Version:  V 0.1
-File:     abNormalDetect.py
+File:     AbNormalDetect.py
 Describe:  Github link: https://github.com/Chen-X666
 """
 # !/usr/bin/python

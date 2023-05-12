@@ -33,14 +33,14 @@ plot_acf(SeasDiff, title='ACF plot of seasonally differenced series', lags=50)
 plot_pacf(SeasDiff, title='PACF plot of seasonally differenced series', lags=50)
 pyplot.show()
 
-### Seasonal + First difference
-Y = SeasDiff
-SeasFirstDiff = list()
-for i in range(1, len(Y)):
-	value = Y[i] - Y[i - 1]
-	SeasFirstDiff.append(value)
-pyplot.plot(SeasFirstDiff)
-pyplot.title('Time plot seasonally + first differenced series')
-plot_acf(SeasFirstDiff, title='ACF plot of seasonally + first differenced series', lags=50)
-plot_pacf(SeasFirstDiff, title='PACF plot of seasonally + first differenced series', lags=50)
-pyplot.show()
+# ### Seasonal + First difference
+# Y = SeasDiff
+# SeasFirstDiff = list()
+# for i in range(1, len(Y)):
+# 	value = Y[i] - Y[i - 1]
+# 	SeasFirstDiff.append(value)
+# pyplot.plot(SeasFirstDiff)
+# pyplot.title('Time plot seasonally + first differenced series')
+# plot_acf(SeasFirstDiff, title='ACF plot of seasonally + first differenced series', lags=50)
+# plot_pacf(SeasFirstDiff, title='PACF plot of seasonally + first differenced series', lags=50)
+# pyplot.show()

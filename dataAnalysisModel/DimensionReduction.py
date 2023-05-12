@@ -3,7 +3,7 @@
 Time:     2022/2/4 17:02
 Author:   ChenXin
 Version:  V 0.1
-File:     dimensionReduction.py
+File:     DimensionReduction.py
 Describe:  Github link: https://github.com/Chen-X666
 """
 from sklearn.decomposition import PCA

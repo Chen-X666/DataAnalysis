@@ -3,7 +3,7 @@
 Time:     2022/2/18 10:33
 Author:   ChenXin
 Version:  V 0.1
-File:     main.py
+File:     ExponentialSmoothing.py
 Describe:  Github link: https://github.com/Chen-X666
 """
 import numpy as np

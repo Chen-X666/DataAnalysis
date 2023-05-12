@@ -37,15 +37,15 @@ Tto4.plot(color='black', legend=True)
 plt.title('Forecast of 3to4 with Holt linear method')
 plt.show()
 
-# Forecasting for D3to4 using Holt's linear method
+# # Forecasting for D3to4 using Holt's linear method
 fit3 = Holt(D3to4).fit(smoothing_level=0.8, smoothing_slope=0.2, optimized=False)
-#fit3 = Holt(D3to4).fit(optimized=True)
+# #fit3 = Holt(D3to4).fit(optimized=True)
 fcast3 = fit3.forecast(6).rename("Additive 2 damped trend")
-fit3.fittedvalues.plot(color='red')
-fcast3.plot(color='red', legend=True)
-D3to4.plot(color='black', legend=True)
-plt.title('Forecast of D3to4 with Holt linear method')
-plt.show()
+# fit3.fittedvalues.plot(color='red')
+# fcast3.plot(color='red', legend=True)
+# D3to4.plot(color='black', legend=True)
+# plt.title('Forecast of D3to4 with Holt linear method')
+# plt.show()
 
 # Building the regression based forecast for main variable, DEOM
 # Regression model(s)
@@ -53,7 +53,7 @@ formula = 'DEOM ~ AAA + Tto4 + D3to4'
 
 # ols generate statistics and the parameters b0, b1, etc., of the model
 results = ols(formula, data=series).fit()
-results.summary()
+print(results.summary())
 b0 = results.params.Intercept
 b1 = results.params.AAA
 b2 = results.params.Tto4

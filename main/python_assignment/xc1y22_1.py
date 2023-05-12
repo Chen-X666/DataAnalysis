@@ -150,3 +150,6 @@ def mark_total(data):
         else:
             F += 1
     return A, B, C, D, F
+
+if __name__ == '__main__':
+    print(change_calculator(4.44))

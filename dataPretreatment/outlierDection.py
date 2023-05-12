@@ -96,6 +96,46 @@ def isolationForest(data):
     return data_merge
 
 
+from pycaret.anomaly import *
+# 分解日期特征
+def create_features(df):
+    df['year'] = df.index.year #年
+    df['month'] = df.index.month #月
+    df['dayofmonth'] = df.index.day #日
+    df['dayofweek'] = df.index.dayofweek #星期
+    df['quarter'] = df.index.quarter #季度
+    df['weekend'] = df.dayofweek.apply(lambda x: 1 if x > 5 else 0) #是否周末
+    df['dayofyear'] = df.index.dayofyear   #年中第几天
+    df['weekofyear'] = df.index.weekofyear #年中第几月
+    df['is_month_start']=df.index.is_month_start
+    df['is_month_end']=df.index.is_month_end
+    return df
+
+def PyOD(df):
+    # 创建特征
+    df4 = create_features(df.copy())
+    # 异常值算法：'knn','cluster','iforest','svm'等。
+    alg = 'knn'  # 异常值算法
+    fraction = 0.02  # 异常值比例 0.02,0.03,0.04,0.05
+    # 创建异常值模型
+    r = setup(df4.copy(), session_id=123, verbose=False)
+    model = r.create_model(alg, fraction=fraction, verbose=False)
+    model_results = r.assign_model(model, verbose=False)
+    # 获取检测结果
+    df5 = pd.merge(df.reset_index(), model_results[['Anomaly']],
+                   left_index=True, right_index=True)
+    df5.set_index('date', inplace=True)
+
+    fig, ax = plt.subplots(figsize=(10, 4))
+    a = df5.loc[df5['Anomaly'] == 1, ['y']]
+    ax.plot(df5.index, df5['y'], color='blue', label='正常值')
+    ax.scatter(a.index, a['y'], color='red', label='异常值')
+    plt.title(f'Pycaret.anomaly {fraction=}')
+    plt.xlabel('date')
+    plt.ylabel('y')
+    plt.legend()
+    plt.show()
+
 
 if __name__ == '__main__':
 

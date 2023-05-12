@@ -12,10 +12,21 @@ from sklearn.preprocessing import LabelEncoder  # 字符串转数值
 import numpy as np  # numpy库
 # 字符串分类转数值分类
 # label encode标签编码(0, n-1)
-def labelEncoder(data,label):
-    category = pd.Categorical(data[label])
-    data[label] = pd.Categorical(data[label]).codes
-    return category,data
+def labelEncoder(df, labels):
+    # Create a dictionary to store the LabelEncoder objects and their corresponding original labels
+    encoders = {}
+
+    # Apply label encoding to each categorical column in the dataframe
+    for col in df[labels]:
+        le = LabelEncoder()
+        encoded_col = le.fit_transform(df[col])
+        df[col] = encoded_col
+        encoders[col] = {'encoder': le, 'classes': list(le.classes_)}
+
+    # Print the original labels corresponding to each encoded value
+    for col in encoders:
+        print(f"Column '{col}': {encoders[col]['classes']} : {np.arange(0,len(encoders[col]['classes']),1)}")
+    return df
 
 if __name__ == '__main__':
     #测试数据集
@@ -24,8 +35,9 @@ if __name__ == '__main__':
             ['房',30,30000]]
     data = pd.DataFrame(data,columns=['house','age','income'])
     print(data)
+    label = ['house','income']
+    data = labelEncoder(data,label)
+    print(data)
 
-    label = ['house']
-    labelEncoder(data,label)
 
 

@@ -18,8 +18,9 @@ Linear Regression |
 ### StatisticModel (from 'statsmodels')
 Simple Exponential Smoothing | 
 Holt’s linear Exponential Smoothing | 
-Holt-Winter Smoothing|
+Holt-Winter Smoothing |
 ARIMA | 
+SARIMAX | 
 ### text2vec
 word2vec | 
 word2tfIDF | 
@@ -27,7 +28,7 @@ doc2vec |
 ### abNoramalDetect
 ### Apriori
 ### Cluster
-K-mean|
+K-mean |
 DBSCAN | 
 ### dimensionReduction
 PCA |
@@ -45,20 +46,21 @@ WoE(include IV filter) |
 ### discretization
 ### outlierDection
 ### sampling
-simpleSampling|
-systematicSampling|
-stratifiedSampling|
-ClusterSampling
+SimpleSampling | 
+SystematicSampling | 
+StratifiedSampling | 
+ClusterSampling | 
 ### SmoothOnehot
-### SMOTE
-### standardization
+### Unbalanced Dataset filling
+SMOTE
+### Standardization
 ZScore |
 MaxMin |
 MaxAbsScaler |
 RobustScaler |
-## Reading
-### datePicReading
-### dateReading
+## Exploratory Data Analysis
+### Figure Exploratory
+### Value Exploratory
 dataSimpleReading |
 dataStringCount |
 label_samples_summary |

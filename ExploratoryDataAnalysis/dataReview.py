@@ -18,28 +18,32 @@ def dataSimpleReview(data):
     pd.set_option('display.max_columns', None)
     pd.set_option('display.max_rows', None)
     df = pd.DataFrame(data)
-    print('{:-^60}'.format('数据基本情况'))
+    print('{:-^60}'.format('Data description'))
     print(df.head().append(df.tail()))
-    print('{:-^60}'.format('数据基本统计分析'))
+    print('{:-^60}'.format('Data basic statistic'))
     print(df.describe())
-    print('{:-^60}'.format('数据集存在重复值的行列'))
+    print('{:-^60}'.format('Missing value detection'))
     print(data[data.duplicated(keep=False)])
-    print('{:-^60}'.format('数据类型查看'))
+    print('{:-^60}'.format('duplicate data detection'))
+    data_dup = data[data.duplicated(keep="last")]
+    print(data_dup.shape)
+    print(data_dup)
+    print('{:-^60}'.format('Data type checking'))
     print(df.info())
-    print('{:-^60}'.format('数据峰度查看；如果训练集和测试集分布不一致，就要考虑进行分布转换'))
+    print('{:-^60}'.format('Data skewness checking'))
     print(df.skew())
-    print('{:-^60}'.format('数据残缺比例'))
+    print('{:-^60}'.format('Residual percentage'))
     print(((df.isnull().sum())/df.shape[0]).sort_values(ascending=False).map(lambda x:"{:.6%}".format(x)))
-    print('{:-^60}'.format('列 空值查看'))
+    print('{:-^60}'.format('Column missing value check'))
     print(df.isnull().any(axis=0).sum())
-    print('{:-^60}'.format('行 空值查看'))
+    print('{:-^60}'.format('Row mssing value check'))
     print(df.isnull().any(axis=1).sum())
-    pd.reset_option("display.max_rows")  # 恢复默认设置
+    pd.reset_option("display.max_rows")  # restore to the initial set
 
 
 def dataStringCount(data,columns):
     data = pd.DataFrame(data)
-    print('{:-^60}'.format('字符串数据计数'))
+    print('{:-^60}'.format('String count'))
     for i in columns:
         print(data[i].value_counts())
 
