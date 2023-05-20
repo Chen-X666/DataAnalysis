@@ -1,3 +1,5 @@
+import warnings
+import arch
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -8,51 +10,19 @@ from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler
+from statsmodels.tsa.ar_model import AutoReg
+from statsmodels.tsa.arima.model import ARIMA
+import numpy as np
+import pandas as pd
+from statsmodels.tsa.ar_model import AutoReg
+from statsmodels.stats.diagnostic import acorr_ljungbox
+from statsmodels.tools.sm_exceptions import ValueWarning
+from statsmodels.tools.sm_exceptions import ConvergenceWarning
 
-def abnormal_data_dectection(df):
-    """
-    Function: Identifies outliers in a time-series dataset using a moving average approach.
-    Parameters:
-        df (pandas DataFrame): A DataFrame with time-series data, where each row represents a timestamp and each column represents a variable of interest.
-    Returns:
-        pandas DataFrame: A new DataFrame with the outliers removed, obtained by dropping the rows in the input DataFrame that contain the identified outliers.
-    Outputs:
-        - A plot of the input DataFrame with outliers marked, showing the original data, the moving average, and the identified outliers.
-        - A printout of the new DataFrame without outliers.
-    """
-    # Define the window size for the moving average
-    window_size = 12
-
-    # Calculate the moving average using a rolling window
-    moving_avg = df.rolling(window_size).mean()
-    # Calculate the moving average and standard deviation
-
-    # Define the threshold for outlier detection
-    threshold = 0.8
-
-    # Identify the outliers
-    outliers = []
-    for i in range(window_size - 1, len(df)):
-        diff = abs(df.values[i] - moving_avg.values[i])
-        if diff > threshold * moving_avg.values[i]:
-            outliers.append(i)
-            print(f"Outlier found: Date: {df.index[i]}, Value: {df.values[i]}")
-
-    # Create a new dataframe with the outliers removed
-    new_df = df.drop(df.index[outliers])
-    # Plot the time-series dataset with outliers marked
-    plt.plot(df.index, df.values,label='original data')
-    plt.plot(moving_avg.index, moving_avg.values, color='red',label='moving avg')
-    plt.xlabel('Year')
-    plt.ylabel('Value')
-    plt.title('Time-Series Dataset with Outliers Marked')
-    for i in outliers:
-        plt.plot(df.index[i], df.values[i], 'ro')
-    plt.show()
-    plt.legend(loc='upper left')
-    # Print the new dataframe without outliers
-    print("\nNew Dataset without outliers:\n", new_df)
-    return new_df
+warnings.simplefilter("ignore", ConvergenceWarning)
+warnings.simplefilter("ignore", ValueWarning)
+warnings.simplefilter("ignore", FutureWarning)
+warnings.simplefilter("ignore", UserWarning)
 
 def mutil_linear_regression(X,y,start_data):
     """
@@ -119,7 +89,7 @@ def plotData(df):
     ax.xaxis.grid(True)
     ax.yaxis.grid(True)
     ax.set_xlabel('year')
-    ax.set_ylabel('value')
+    ax.set_ylabel('R(i,t)-Indonesia short-term interest rate ')
     plt.tight_layout()
     plt.legend()
     plt.show()
@@ -148,6 +118,7 @@ def stationary_ADF_test(series,cutoff=0.01):
                                index=['Test Statistic', 'p-value', '#Lags Used', 'Number of Observations Used'])
     for key, value in result[4].items():
         ts_test_output['Critical Value (%s)' % key] = value
+    print(ts_test_output)
     # Check if the test rejects the null hypothesis and concludes that the series is stationary
     if result[1] <= cutoff:
         print(u"Rejected the original hypothesis that the data have no unit root and the series is smooth.")
@@ -155,11 +126,44 @@ def stationary_ADF_test(series,cutoff=0.01):
         print(u"Cannot rejected the original hypothesis that the data has a unit root and the data is non-stationary.")
     print('Meanwhile, If the p-value is less than the significance level (usually 0.05) then we can reject the null hypothesis and conclude that the time series is stationary.')
 
+def AR_model(df,p):
+    model = AutoReg(df, lags=p)
+    model_fit = model.fit()
+    # Print the summary of the model
+    print(f"AR({p}) model summary:")
+    print(model_fit.summary())
+    print("\n")
+    # Plot the original time series and the fitted values
+    plt.figure()
+    plt.plot(df, label="Original Data")
+    plt.plot(model_fit.fittedvalues, label=f"Fitted AR({p}) Data")
+    plt.legend()
+    plt.xlabel("Time")
+    plt.ylabel("Value")
+    plt.title(f"AR({p}) Model")
+    plt.show()
+
+def ARMA_model(df,p,q):
+    model = ARIMA(df, order=(p, 0, q))
+    results = model.fit()
+    print(f"ARMA({p}, {q}) Model Summary:")
+    print(results.summary())
+
+    # Plot the original time series and the fitted values
+    plt.figure()
+    plt.plot(df, label="Original Data")
+    plt.plot(results.fittedvalues, label=f"Fitted ARMA({p}, {q}) Data")
+    plt.legend()
+    plt.xlabel("Time")
+    plt.ylabel("Value")
+    plt.title(f"ARMA({p}, {q}) Model")
+    plt.show()
+
 if __name__ == '__main__':
     dataset = pd.read_excel('dataset.xlsx', sheet_name='Sheet1', parse_dates=['time'],
                               squeeze=True, index_col=0)
     dataset = dataset.dropna()
-    dataset = dataset [dataset.index >= '2000-01-01']
+    # dataset = dataset [dataset.index >= '2000-01-01']
     # print(dataset)
     # X = dataset[['USinterest', 'VIX','EPU']]  # predictors
     # # dataset.plt()
@@ -168,3 +172,84 @@ if __name__ == '__main__':
     dataset = dataset['indonesia']
     # model = mutil_linear_regression(X=X, y=y, start_data=dataset.index.min())
     stationary_ADF_test(series=dataset)
+    # Compute the first difference
+    plotData(df=dataset)
+    first_difference = (dataset - dataset.shift(1)).dropna(inplace=False)
+    stationary_ADF_test(series=first_difference)
+    # Fit AR(p) models with different orders
+    p_values = [1, 2, 3]  # Orders for AR models
+    q_values = [1, 2, 3]  # Orders for ARMA models
+
+    # Initialize summary table
+    summary_table = pd.DataFrame(
+        columns=['Model', 'Coefficients', 'Standard Errors', 'AIC', 'BIC', 'Ljung-Box Q-Stat', 'Ljung-Box P-Value'])
+    # Fit AR(p) models for p=1,2,3
+    for p in range(1, 4):
+        model = AutoReg(first_difference, lags=p)
+        results = model.fit()
+        print(f"AR({p}) Model Summary:")
+        print(results.summary())
+
+        # Calculate the Ljung-Box Q test for the first 12 autocorrelations in the residual series
+        lb_test = acorr_ljungbox(results.resid, lags=12, return_df=True)
+
+        # Append model information to the summary table
+        summary_table = summary_table.append({
+            'Model': f'AR({p})',
+            'Coefficients': results.params,
+            'Standard Errors': results.bse,
+            'AIC': results.aic,
+            'BIC': results.bic,
+            'Ljung-Box Q-Stat': lb_test['lb_stat'].values,
+            'Ljung-Box P-Value': lb_test['lb_pvalue'].values
+        }, ignore_index=True)
+
+    print("Summary Table:")
+    print(summary_table)
+
+    # Ljung_Box_Q_Stat = list(summary_table['Ljung-Box P-Value'].values)
+    # Ljung_Box_Q_Stat = np.round(Ljung_Box_Q_Stat, decimals=3)
+    # pd.DataFrame(Ljung_Box_Q_Stat).to_csv('Ljung-Box P-Value.csv',encoding='utf-8')
+    # # Initialize summary table
+    # summary_table = pd.DataFrame(
+    #     columns=['Model', 'Coefficients', 'Standard Errors', 'AIC', 'BIC', 'Ljung-Box Q-Stat', 'Ljung-Box P-Value'])
+    #
+    # # Fit ARMA(p, q) models for p=1,2,3 and q=1,2,3
+    # for p in range(1, 4):
+    #     for q in range(1, 4):
+    #         model = ARIMA(first_difference, order=(p, 0, q))
+    #         results = model.fit()
+    #         print(f"ARMA({p}, {q}) Model Summary:")
+    #         print(results.summary())
+    #
+    #         # Calculate the Ljung-Box Q test for the first 12 autocorrelations in the residual series
+    #         lb_test = acorr_ljungbox(results.resid, lags=12, return_df=True)
+    #
+    #         # Append model information to the summary table
+    #         summary_table = summary_table.append({
+    #             'Model': f'ARMA({p}, {q})',
+    #             'Coefficients': results.params,
+    #             'Standard Errors': results.bse,
+    #             'AIC': results.aic,
+    #             'BIC': results.bic,
+    #             'Ljung-Box Q-Stat': lb_test['lb_stat'].values,
+    #             'Ljung-Box P-Value': lb_test['lb_pvalue'].values
+    #         }, ignore_index=True)
+    #
+    # print("Summary Table:")
+    # print(summary_table)
+    Ljung_Box_Q_Stat = list(summary_table['Ljung-Box Q-Stat'].values)
+    Ljung_Box_P_Value = list(summary_table['Ljung-Box P-Value'].values)
+    Ljung_Box_Q_Stat = np.round(Ljung_Box_Q_Stat, decimals=3)
+    Ljung_Box_P_Value = np.round(Ljung_Box_P_Value, decimals=3)
+    Ljung_Box = []
+    for i in range(0,9,1):
+        Ljung_Box.append(Ljung_Box_Q_Stat[i])
+        Ljung_Box.append(Ljung_Box_P_Value[i])
+
+    pd.DataFrame(Ljung_Box).to_csv('Ljung-Box Q-Stat.csv',encoding='utf-8')
+    #
+    #
+    # model = arch.arch_model(first_difference, vol='Garch', p=1)
+    # model_fit = model.fit()
+    # print(model_fit.summary())

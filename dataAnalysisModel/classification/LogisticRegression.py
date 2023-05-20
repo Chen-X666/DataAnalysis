@@ -36,8 +36,10 @@ def LogisticRegress(X_train, X_test, y_train, y_test):
     print('The number of the data: {0} | The features of the data: {1}'.format(n_samples,n_features))
 
     # train the logistic regression model
-    parameters = {'penalty':['l1','l2'],'C':[0.001,0.01,0.1,1,10,100],'solver':['lbfgs']} # 可优化参数
-    parameters = {'penalty': ['l2'], 'C': [100], 'solver': ['lbfgs']}  # 最优参数
+    parameters = {'penalty':['l1','l2'],
+                  'C':[0.001,0.01,0.1,1,10,100],
+                  'solver':['liblinear','saga','lbfgs']} #
+    # parameters = {'penalty': ['l2'], 'C': [100], 'solver': ['lbfgs']}  # 最优参数
     # train the cross-validation and grid search model
     model_t = GridSearchCV(estimator=linear_model.LogisticRegression(max_iter=10000), param_grid=parameters,verbose=0,cv=10,n_jobs=-1,scoring='roc_auc')  # 建立交叉检验模型对象，并行数与CPU一致
     model_t.fit(X_train, y_train)
@@ -69,9 +71,9 @@ def LogisticRegress(X_train, X_test, y_train, y_test):
     # # featureImportant(X_train,model)
     # ConfusionMatrix(y_test, y_predict)
     # # accuracy，precision，recall，and f1.
-    # valueEvaluation(y_test,y_predict,y_score)
+    valueEvaluation(y_test,y_predict,y_score)
     # # learning line
-    plot_learning_curve(model, X_train, X_test, y_train, y_test)
+    # plot_learning_curve(model, X_train, X_test, y_train, y_test)
     return model
 
 def featureImportant(X,model):

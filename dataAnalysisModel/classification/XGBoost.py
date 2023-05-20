@@ -21,7 +21,7 @@ from dataAnalysisModel.classification.classificationMetrics import ROC, Confusio
 
 
 def XGboost(X_train, X_test, y_train, y_test):
-    print('{:-^60}'.format('Random forest construction'))
+    print('{:-^60}'.format('XGBoost construction'))
     # sample and features
     n_samples, n_features = X_train.shape
     print('{:-^60}'.format('data check'))

@@ -4,7 +4,7 @@ import jieba.analyse  # 导入关键字提取库
 import pandas as pd
 import re
 # 读取文本文件
-fn = open('./data/article1.txt')  # 以只读方式打开文件
+fn = open('data/article1.txt')  # 以只读方式打开文件
 string_data = fn.read()  # 使用read方法读取整段文本
 fn.close()  # 关闭文件对象
 pattern = re.compile('\t|\n|-|"')  # 建立正则表达式匹配模式

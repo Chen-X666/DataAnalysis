@@ -127,7 +127,7 @@ def sample_balance(X, y):
 dtypes = {'order_id': np.object,
           'pro_id': np.object,
           'use_id': np.object}
-raw_data = pd.read_table('./data/abnormal_orders.txt', delimiter=',', dtype=dtypes)  # 读取数据集
+raw_data = pd.read_table('data/abnormal_orders.txt', delimiter=',', dtype=dtypes)  # 读取数据集
 
 # 数据审查
 set_summary(raw_data)  # 基本状态查看
@@ -174,7 +174,7 @@ print('混淆矩阵：')
 print(confusion_matrix(y,y_predicttrain))
 
 # 新数据集做预测
-X_raw_data = pd.read_csv('./data/new_abnormal_orders.csv', dtype=dtypes)  # 读取要预测的数据集
+X_raw_data = pd.read_csv('data/new_abnormal_orders.csv', dtype=dtypes)  # 读取要预测的数据集
 X_raw_new = X_raw_data.iloc[:, 1:]  # 分割输入变量X，并丢弃订单ID列
 convert_matrix_new = label_encoder(X_raw_new, model_list, False)  # 字符串分类转整数型分类
 datetime2int_data_new = datetime2int(X_raw_new)  # 日期时间转换
