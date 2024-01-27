@@ -66,7 +66,7 @@ def decisionTree(X_train, X_test, y_train, y_test):
     valueEvaluation(y_test, pre_y, y_score)
 
     # plot learning curve
-    #plot_learning_curve(model_gs, X_train, X_test, y_train, y_test)
+    plot_learning_curve(model_gs, X_train, X_test, y_train, y_test)
 
     # show the tree but need the third-part tools
     #drawLine.drawTestLiner(model_gs, X_train, X_test, y_train, y_test,line=precision_score)
